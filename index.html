@@ -1,12 +1,8 @@
 <!DOCTYPE html>
-<html>
-<head>
-<title>INSTANT - Login</title>
-<script src="https://cdn.tailwindcss.com"></script>
-</head>
+<html><head><title>INSTANT - Login</title><script src="https://cdn.tailwindcss.com"></script></head>
 <body class="bg-black text-white flex items-center justify-center min-h-screen">
 <div class="border border-zinc-800 p-8 w-[350px] rounded-xl">
-<h1 class="text-4xl font-bold mb-6" style="font-family:monospace">INSTANT</h1>
+<h1 class="text-4xl font-bold mb-6">INSTANT</h1>
 <input id="username" placeholder="Username" class="w-full p-3 mb-3 bg-zinc-900 border border-zinc-800 rounded">
 <input id="password" type="password" placeholder="Password" class="w-full p-3 mb-3 bg-zinc-900 border border-zinc-800 rounded">
 <button onclick="signup()" class="w-full bg-blue-600 p-3 rounded mb-2 font-bold">Create New ID</button>
@@ -15,22 +11,19 @@
 </div>
 <script>
 function signup(){
-  let u=username.value, p=password.value;
-  if(!u||!p) return msg.innerText="Username password daal";
-  let users=JSON.parse(localStorage.getItem('insta_users')||'[]');
-  if(users.find(x=>x.u==u)) return msg.innerText="Ye ID pehle se hai";
-  users.push({u,p}); localStorage.setItem('insta_users', JSON.stringify(users));
-  msg.innerText="ID ban gayi! Ab Login kar";
+ let u=username.value.trim(), p=password.value.trim();
+ if(!u||!p) return msg.innerText="Username password daal";
+ let users=JSON.parse(localStorage.getItem('insta_users')||'[]');
+ if(users.find(x=>x.u==u)) return msg.innerText="Ye ID pehle se hai";
+ users.push({u,p}); localStorage.setItem('insta_users', JSON.stringify(users));
+ msg.innerText="ID ban gayi! Ab Login kar";
 }
 function login(){
-  let u=username.value, p=password.value;
-  let users=JSON.parse(localStorage.getItem('insta_users')||'[]');
-  if(users.find(x=>x.u==u && x.p==p)){
-    localStorage.setItem('insta_current', u);
-    location.href="home.html";
-  }
-  else msg.innerText="Galat ID ya Password";
+ let u=username.value.trim(), p=password.value.trim();
+ let users=JSON.parse(localStorage.getItem('insta_users')||'[]');
+ if(users.find(x=>x.u==u && x.p==p)){
+   localStorage.setItem('insta_current', u);
+   window.location.href="home.html";
+ } else { msg.innerText="Galat ID ya Password"; }
 }
-</script>
-</body>
-</html>
+</script></body></html>
