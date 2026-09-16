@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>INSTANT - Login</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-black text-white flex items-center justify-center h-screen">
+<div class="border border-zinc-800 p-8 w-[350px] text-center rounded-xl">
+<h1 class="text-4xl font-bold mb-6" style="font-family:cursive">Instant</h1>
+<input id="username" placeholder="Username" class="w-full p-2 mb-3 bg-zinc-900 border border-zinc-700 rounded">
+<input id="password" type="password" placeholder="Password" class="w-full p-2 mb-3 bg-zinc-900 border border-zinc-700 rounded">
+<button onclick="signup()" class="w-full bg-blue-600 p-2 rounded font-bold mb-2">Create New ID</button>
+<button onclick="login()" class="w-full bg-zinc-800 p-2 rounded">Login</button>
+<p id="msg" class="text-sm mt-3 text-zinc-400"></p>
+</div>
+<script>
+function signup(){
+  let u=username.value, p=password.value;
+  if(!u||!p) return msg.innerText="Username pass daal bhai";
+  let users=JSON.parse(localStorage.getItem('instant_users')||'[]');
+  if(users.find(x=>x.u==u)) return msg.innerText="Ye ID pehle se hai";
+  users.push({u,p}); localStorage.setItem('instant_users',JSON.stringify(users));
+  msg.innerText="ID ban gayi! Ab Login kar";
+}
+function login(){
+  let u=username.value, p=password.value;
+  let users=JSON.parse(localStorage.getItem('instant_users')||'[]');
+  if(users.find(x=>x.u==u && x.p==p)){ localStorage.setItem('instant_current',u); location.href='index.html'; }
+  else msg.innerText="Galat ID ya Password";
+}
+</script>
+</body>
+</html>
